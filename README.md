@@ -1,4 +1,4 @@
-# koroka
+# Todo App
 
 ## Build Setup
 
