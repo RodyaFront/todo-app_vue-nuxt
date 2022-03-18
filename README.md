@@ -3,7 +3,10 @@
 
 ```bash
 #App Framework
-Nuxt.js
+Nuxt.js ( Vue3 )
+
+#Store
+Vuex
 
 #Visual framework
 Vuesax
