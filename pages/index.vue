@@ -8,10 +8,6 @@
               <i class="bx bx-edit-alt"></i>
               Add Todo
             </vs-button>
-            <vs-button border>
-              <i class="bx bx-import"></i>
-              Import todos
-            </vs-button>
           </div>
           <div class="todo__search">
             <vs-input
@@ -65,6 +61,11 @@
         </div>
       </div>
     </div>
+    <ConfirmModal
+      @close="handleCloseConfirmModal"
+      @accept="handleConfirmDeleteTodo"
+      :active="confirmDialog"
+    />
     <AddTodoModal
       @closeModal="handleCloseAddModal"
       @saveData="handleSaveNewTodo"
@@ -82,6 +83,7 @@
 <script>
 import EditTodoModal from '~/components/EditTodoModal'
 import AddTodoModal from '~/components/AddTodoModal'
+import ConfirmModal from '~/components/ConfirmModal'
 import TodoCard from '~/components/TodoCard'
 import { SESSION_STORAGE_NAMES } from '~/utils/defaultData'
 
@@ -90,6 +92,7 @@ export default {
     EditTodoModal,
     AddTodoModal,
     TodoCard,
+    ConfirmModal,
   },
   data: () => ({
     todos: [
@@ -128,6 +131,7 @@ export default {
     filteredTodos: [],
     addTodoDialog: false,
     editTodoDialog: false,
+    confirmDialog: false,
     editedTodo: {},
     searchTimeout: null,
     searchLoading: false,
@@ -196,12 +200,20 @@ export default {
       }
     },
     handleDeleteTodo(id) {
-      this.todos = this.todos.filter((todo) => todo.id !== id)
+      this.confirmDialog = true
+      this.idOfTodoOnDeleting = id
+    },
+    handleConfirmDeleteTodo() {
+      this.todos = this.todos.filter(
+        (todo) => todo.id !== this.idOfTodoOnDeleting
+      )
       this.$store.commit('setMessage', {
         title: 'Todo',
         text: 'Todo deleted!',
         color: 'warn',
       })
+      this.confirmDialog = false
+      this.idOfTodoOnDeleting = null
     },
     filterTodoByQuery(string = '') {
       const query = string.toLowerCase()
@@ -231,6 +243,9 @@ export default {
     },
     handleCloseAddModal() {
       this.addTodoDialog = false
+    },
+    handleCloseConfirmModal() {
+      this.confirmDialog = false
     },
   },
 }

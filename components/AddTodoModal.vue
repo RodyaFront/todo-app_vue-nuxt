@@ -74,6 +74,7 @@ export default {
   data: () => ({
     title: '',
     content: '',
+    subtasks: [],
     isFormValid: false,
     dialog: false,
   }),
