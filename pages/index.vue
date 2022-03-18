@@ -85,7 +85,7 @@ import EditTodoModal from '~/components/EditTodoModal'
 import AddTodoModal from '~/components/AddTodoModal'
 import ConfirmModal from '~/components/ConfirmModal'
 import TodoCard from '~/components/TodoCard'
-import { SESSION_STORAGE_NAMES } from '~/utils/defaultData'
+import { SESSION_STORAGE_NAMES, MOCK_TODOS } from '~/utils/defaultData'
 
 export default {
   components: {
@@ -95,38 +95,7 @@ export default {
     ConfirmModal,
   },
   data: () => ({
-    todos: [
-      {
-        id: 0,
-        title: 'Hello!',
-        content: 'This is todo application written on Nuxt.js "framework"',
-        done: false,
-        subtasks: [
-          {
-            id: 1,
-            title: 'subtask 1',
-            content: 'Text inside 2 subtask',
-            done: false,
-            subtasks: [
-              {
-                id: 2,
-                title: 'subtask 2',
-                content: 'Text inside 2 subtask',
-                done: false,
-                subtasks: [
-                  {
-                    id: 3,
-                    title: 'subtask 3',
-                    content: 'Text inside 3 subtask',
-                    done: false,
-                  },
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    todos: MOCK_TODOS,
     searchQuery: '',
     filteredTodos: [],
     addTodoDialog: false,
