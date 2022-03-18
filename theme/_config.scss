@@ -1,0 +1,68 @@
+// FONTS LOAD SECTION
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+
+// USER VARIABLES SECTION
+
+:root {
+  --fontFamily: 'Poppins', sans-serif;
+  --fontSize: 18px;
+  --fontWeight: 300;
+  --lineHeight: 1.78;
+  --textColor: 0, 0, 0;
+  --greenColor: 126, 222, 134;
+  --whiteColor: 255, 255, 255;
+  --grayColor: 65, 65, 65;
+  --lightGrayColor: 174, 180, 193;
+  --lightGrayV2Color: 180, 180, 180;
+  --lightGrayV3Color: 243, 243, 243;
+  --redColor: 255, 50, 50;
+  --vs-primary: 75, 207, 160;
+  --hoverPrimaryColor: 193, 37, 101;
+}
+
+// GENERAL DOCUMENT STYLES
+
+html,
+body {
+  height: 100%;
+  background-color: #f1f1f1;
+}
+body {
+  font-family: var(--fontFamily);
+  font-size: var(--fontSize);
+  font-weight: var(--fontWeight);
+  min-width: 320px;
+  position: relative;
+  overflow-x: hidden;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+}
+*::-webkit-scrollbar {
+  width: 9px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(var(--vs-primary), 1);
+  border-radius: 94px;
+}
+
+a {
+  text-decoration: none;
+  transition: 0.3s ease-in-out;
+}
+
+::selection {
+  background-color: rgba(var(--vs-primary), 1);
+  color: rgba(var(--whiteColor), 1);
+}

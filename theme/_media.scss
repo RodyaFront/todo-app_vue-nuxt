@@ -1,0 +1,29 @@
+@media screen and (max-width: 1400px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .container {
+    max-width: 970px;
+  }
+  .todo {
+    &__list {
+    }
+    &__card {
+      flex-basis: 100%;
+      max-width: 100%;
+    }
+  }
+}
+@media screen and (max-width: 992px) {
+  .container {
+    max-width: 750px;
+  }
+}
+@media screen and (max-width: 767px) {
+  .container {
+    max-width: none;
+  }
+}
