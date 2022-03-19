@@ -2,8 +2,8 @@
   <vs-dialog
     v-model="dialog"
     class="import-todo-modal"
-    @close="closeModal"
     prevent-close
+    @close="closeModal"
   >
     <template #header>
       <h4 class="not-margin">Import <b>TODO's</b></h4>
@@ -28,7 +28,7 @@
 
     <template #footer>
       <div class="footer-dialog flex">
-        <vs-button block @click="exportTodos" border> Export </vs-button>
+        <vs-button block border @click="exportTodos"> Export</vs-button>
         <vs-button :disabled="!isFormValid" block @click="importTodos">
           Import
         </vs-button>
