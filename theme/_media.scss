@@ -9,8 +9,6 @@
     max-width: 970px;
   }
   .todo {
-    &__list {
-    }
     &__card {
       flex-basis: 100%;
       max-width: 100%;
@@ -25,5 +23,40 @@
 @media screen and (max-width: 767px) {
   .container {
     max-width: none;
+  }
+  .todo {
+    &__list {
+      gap: 15px;
+    }
+  }
+}
+@media screen and (max-width: 530px) {
+  .container {
+    max-width: none;
+  }
+  .todo {
+    &__list {
+      gap: 15px;
+    }
+    &__panel {
+      order: 2;
+      justify-content: space-between;
+      width: 100%;
+      button {
+        margin: 0;
+        font-size: 12px;
+      }
+    }
+    &__header {
+      flex-direction: column;
+      gap: 8px;
+    }
+    &__search {
+      order: 1;
+      width: 100%;
+      input {
+        width: 100%;
+      }
+    }
   }
 }
