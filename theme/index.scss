@@ -106,7 +106,7 @@
   &__card {
     flex-basis: calc(33.33333% - 27px);
     padding: 32px;
-    background: #ffffff;
+    background: #fff;
     border-radius: 24px;
     transition: 350ms ease-in-out;
     box-shadow: 0 0 5px transparent;
@@ -132,7 +132,8 @@
   }
 }
 
-.add-todo-modal {
+.add-todo-modal,
+.import-todo-modal {
   .vs-dialog {
     min-width: 300px;
   }
@@ -142,6 +143,11 @@
     }
     input {
       width: 100%;
+    }
+  }
+  .footer-dialog {
+    &.flex {
+      display: flex;
     }
   }
 }
