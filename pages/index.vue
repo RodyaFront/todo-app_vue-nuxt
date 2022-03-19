@@ -8,6 +8,10 @@
               <i class="bx bx-edit-alt"></i>
               Add Todo
             </vs-button>
+            <vs-button @click="importDialog = !importDialog" border>
+              <i class="bx bx-import"></i>
+              Import todo's
+            </vs-button>
           </div>
           <div class="todo__search">
             <vs-input
@@ -61,21 +65,27 @@
         </div>
       </div>
     </div>
+    <ImportModal
+      :modelValue="todos"
+      :active="importDialog"
+      @rewriteTodo="todos = $event"
+      @closeModal="importDialog = false"
+    />
     <ConfirmModal
-      @close="handleCloseConfirmModal"
-      @accept="handleConfirmDeleteTodo"
       :active="confirmDialog"
+      @closeModal="confirmDialog = false"
+      @accept="handleConfirmDeleteTodo"
     />
     <AddTodoModal
-      @closeModal="handleCloseAddModal"
-      @saveData="handleSaveNewTodo"
       :active="addTodoDialog"
+      @closeModal="addTodoDialog = false"
+      @saveData="handleSaveNewTodo"
     />
     <EditTodoModal
+      :active="editTodoDialog"
+      :form-data="editedTodo"
       @closeModal="handleCloseEditModal"
       @saveData="handleSaveEditedTodo"
-      :active="editTodoDialog"
-      :formData="editedTodo"
     />
   </div>
 </template>
@@ -84,6 +94,7 @@
 import EditTodoModal from '~/components/EditTodoModal'
 import AddTodoModal from '~/components/AddTodoModal'
 import ConfirmModal from '~/components/ConfirmModal'
+import ImportModal from '~/components/ImportModal'
 import TodoCard from '~/components/TodoCard'
 import { SESSION_STORAGE_NAMES, MOCK_TODOS } from '~/utils/defaultData'
 
@@ -93,6 +104,7 @@ export default {
     AddTodoModal,
     TodoCard,
     ConfirmModal,
+    ImportModal,
   },
   data: () => ({
     todos: MOCK_TODOS,
@@ -101,6 +113,7 @@ export default {
     addTodoDialog: false,
     editTodoDialog: false,
     confirmDialog: false,
+    importDialog: false,
     editedTodo: {},
     searchTimeout: null,
     searchLoading: false,
@@ -209,12 +222,6 @@ export default {
     handleCloseEditModal() {
       this.editTodoDialog = false
       this.editedTodo = ''
-    },
-    handleCloseAddModal() {
-      this.addTodoDialog = false
-    },
-    handleCloseConfirmModal() {
-      this.confirmDialog = false
     },
   },
 }
