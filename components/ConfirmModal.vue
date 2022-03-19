@@ -11,7 +11,9 @@
     <template #footer>
       <div class="modal__footer">
         <vs-button @click="$emit('accept')" transparent> Ok </vs-button>
-        <vs-button @click="$emit('close')" dark transparent> Cancel </vs-button>
+        <vs-button @click="$emit('closeModal')" dark transparent>
+          Cancel
+        </vs-button>
       </div>
     </template>
   </vs-dialog>
@@ -35,7 +37,7 @@ export default {
   }),
   methods: {
     closeModal() {
-      this.$emit('close')
+      this.$emit('closeModal')
     },
   },
 }
