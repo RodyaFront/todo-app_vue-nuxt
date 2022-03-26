@@ -15,6 +15,11 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
 
+  pageTransition: {
+    name: 'default',
+    mode: '',
+  },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['vuesax/dist/vuesax.css', '@/theme/index.scss'],
 

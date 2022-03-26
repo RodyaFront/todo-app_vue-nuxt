@@ -1,0 +1,25 @@
+$t-duration: 800ms;
+$t-delay: 300ms;
+
+.default-enter-active,
+.default-leave-active {
+  transition-property: opacity, transform;
+  transition-duration: $t-duration;
+  transition-timing-function: ease-in-out;
+}
+
+.default-enter-active {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  transform: translate3d(0, 100vh, 0);
+}
+
+.default-leave-to {
+  opacity: 0.2;
+  transform: translate3d(0, -80vh, 0);
+}
+.default-enter-to {
+  transform: translate3d(0, 0, 0);
+}
