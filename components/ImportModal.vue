@@ -126,7 +126,6 @@ export default {
       this.isFormValid = false
     },
     copyTextToClipboard(text) {
-      console.log('this')
       const textArea = document.createElement('textarea')
       textArea.style.position = 'fixed'
       textArea.style.top = 0

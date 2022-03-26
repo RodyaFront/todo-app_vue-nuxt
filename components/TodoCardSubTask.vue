@@ -4,7 +4,7 @@
       <div class="sub-task__title">{{ data.title }}</div>
       <div class="sub-task__content">{{ data.content }}</div>
     </div>
-    <div class="sub-task__tasks" v-if="data.subtasks">
+    <div v-if="data.subtasks" class="sub-task__tasks">
       <TodoCardSubTask
         v-for="task in data.subtasks"
         :key="task.id"

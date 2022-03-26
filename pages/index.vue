@@ -1,92 +1,97 @@
 <template>
   <div class="main-page">
-    <div class="todo">
-      <div class="todo__wrapper">
-        <div class="todo__header">
-          <div class="todo__panel">
-            <vs-button @click="addTodoDialog = !addTodoDialog">
-              <i class="bx bx-edit-alt"></i>
-              Add Todo
-            </vs-button>
-            <vs-button @click="importDialog = !importDialog" border>
-              <i class="bx bx-import"></i>
-              Import todo's
-            </vs-button>
+    <div class="container">
+      <div class="todo">
+        <div class="todo__wrapper">
+          <div class="todo__header">
+            <div class="todo__panel">
+              <vs-button @click="addTodoDialog = !addTodoDialog">
+                <i class="bx bx-edit-alt"></i>
+                Add Todo
+              </vs-button>
+              <vs-button @click="importDialog = !importDialog" border>
+                <i class="bx bx-import"></i>
+                Import todo's
+              </vs-button>
+            </div>
+            <div class="todo__search">
+              <vs-input
+                v-model="searchQuery"
+                placeholder="Search"
+                icon
+                :loading="searchLoading"
+                type="search"
+              >
+                <template #icon>
+                  <i class="bx bx-search"></i>
+                </template>
+              </vs-input>
+            </div>
           </div>
-          <div class="todo__search">
-            <vs-input
-              v-model="searchQuery"
-              placeholder="Search"
-              icon
-              :loading="searchLoading"
-              type="search"
-            >
-              <template #icon>
-                <i class="bx bx-search"></i>
-              </template>
-            </vs-input>
+          <transition-group
+            v-if="todos.length && filteredTodos && filteredTodos.length === 0"
+            name="todos"
+            tag="div"
+            class="todo__list"
+          >
+            <TodoCard
+              v-for="todo in todos"
+              :key="todo.id"
+              :card-data="todo"
+              @delete="handleDeleteTodo"
+              @edit="handleEditTodo"
+            />
+          </transition-group>
+          <transition-group
+            v-if="filteredTodos && filteredTodos.length"
+            name="todos"
+            tag="div"
+            class="todo__list"
+          >
+            <TodoCard
+              v-for="todo in filteredTodos"
+              :key="todo.id"
+              :card-data="todo"
+              @delete="handleDeleteTodo"
+              @edit="handleEditTodo"
+            />
+          </transition-group>
+          <div v-if="!todos.length" class="todo__empty-message">
+            Is there someone here?...
           </div>
-        </div>
-        <transition-group
-          v-if="todos.length && filteredTodos && filteredTodos.length === 0"
-          name="todos"
-          tag="div"
-          class="todo__list"
-        >
-          <TodoCard
-            v-for="todo in todos"
-            :key="todo.id"
-            :card-data="todo"
-            @delete="handleDeleteTodo"
-            @edit="handleEditTodo"
-          />
-        </transition-group>
-        <transition-group
-          v-if="filteredTodos && filteredTodos.length"
-          name="todos"
-          tag="div"
-          class="todo__list"
-        >
-          <TodoCard
-            v-for="todo in filteredTodos"
-            :key="todo.id"
-            :card-data="todo"
-            @delete="handleDeleteTodo"
-            @edit="handleEditTodo"
-          />
-        </transition-group>
-        <div v-if="!todos.length" class="todo__empty-message">
-          Is there someone here?...
-        </div>
-        <div class="todo__footer">
-          <transition name="todos">
-            <small>{{ getTip }}</small>
-          </transition>
+          <div class="todo__footer">
+            <transition name="todos">
+              <small>{{ getTip }}</small>
+            </transition>
+          </div>
         </div>
       </div>
+      <ImportModal
+        :modelValue="todos"
+        :active="importDialog"
+        @rewriteTodo="todos = $event"
+        @closeModal="importDialog = false"
+      />
+      <ConfirmModal
+        :active="confirmDialog"
+        @closeModal="confirmDialog = false"
+        @accept="handleConfirmDeleteTodo"
+      />
+      <AddTodoModal
+        :active="addTodoDialog"
+        @closeModal="addTodoDialog = false"
+        @saveData="handleSaveNewTodo"
+      />
+      <EditTodoModal
+        :active="editTodoDialog"
+        :form-data="editedTodo"
+        @closeModal="handleCloseEditModal"
+        @saveData="handleSaveEditedTodo"
+      />
+      <nuxt-link to="/home" class="hp-link"
+        >About me <i class="bx bx-info-circle"></i
+      ></nuxt-link>
     </div>
-    <ImportModal
-      :modelValue="todos"
-      :active="importDialog"
-      @rewriteTodo="todos = $event"
-      @closeModal="importDialog = false"
-    />
-    <ConfirmModal
-      :active="confirmDialog"
-      @closeModal="confirmDialog = false"
-      @accept="handleConfirmDeleteTodo"
-    />
-    <AddTodoModal
-      :active="addTodoDialog"
-      @closeModal="addTodoDialog = false"
-      @saveData="handleSaveNewTodo"
-    />
-    <EditTodoModal
-      :active="editTodoDialog"
-      :form-data="editedTodo"
-      @closeModal="handleCloseEditModal"
-      @saveData="handleSaveEditedTodo"
-    />
   </div>
 </template>
 
@@ -213,7 +218,6 @@ export default {
     },
     handleSaveEditedTodo(editedTodo) {
       const idx = this.todos.findIndex((todo) => todo.id === editedTodo.id)
-      console.log(editedTodo)
       this.todos[idx] = editedTodo
     },
     handleSaveNewTodo(newTodo) {
